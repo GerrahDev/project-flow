@@ -1,0 +1,105 @@
+<!-- AssetsPanel Template - Asset management and import -->
+<div class="assets-container">
+    <!-- Assets Header -->
+    <div class="assets-header">
+        <!-- Import Controls -->
+        <div class="assets-import-controls">
+            <button class="assets-btn primary" id="assets-import-btn" title="Import Assets">
+                <span class="btn-icon">📁</span>
+                <span class="btn-label">Import</span>
+            </button>
+            <input type="file" id="assets-import-input" multiple accept=".png,.jpg,.jpeg,.gif,.svg,.webp,.mp4,.mov,.avi,.webm,.mp3,.wav,.aac,.ogg" style="display: none;">
+            <button class="assets-btn" id="assets-create-folder-btn" title="Create Folder">
+                <span class="btn-icon">📂</span>
+            </button>
+        </div>
+        
+        <!-- View Controls -->
+        <div class="assets-view-controls">
+            <select id="assets-view-mode" class="assets-select">
+                <option value="grid">Grid</option>
+                <option value="list">List</option>
+            </select>
+            <input type="text" id="assets-search" class="assets-search" placeholder="Search assets...">
+        </div>
+    </div>
+    
+    <!-- Assets Content -->
+    <div class="assets-content">
+        <!-- Folder Tree (Left Side) -->
+        <div class="assets-folders" id="assets-folders">
+            <div class="folder-tree">
+                <div class="folder-item root-folder" data-folder="">
+                    <span class="folder-icon">📁</span>
+                    <span class="folder-name">All Assets</span>
+                </div>
+                <!-- Dynamic folder tree will be generated here -->
+            </div>
+        </div>
+        
+        <!-- Assets Grid (Right Side) -->
+        <div class="assets-main">
+            <div class="assets-grid grid-view" id="assets-grid">
+                <!-- Asset items will be generated here -->
+                <div class="assets-empty-state">
+                    <div class="empty-icon">📁</div>
+                    <p>No assets imported</p>
+                    <small>Click Import to add images, videos, or audio files</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Assets Footer -->
+    <div class="assets-footer">
+        <div class="assets-status">
+            <span id="assets-count">0 assets</span>
+        </div>
+        <div class="assets-info">
+            <span class="assets-storage">Storage: 0 MB used</span>
+        </div>
+    </div>
+    
+    <!-- Assets Context Menu -->
+    <div class="assets-context-menu" id="assets-context-menu" style="display: none;">
+        <div class="context-menu-item" data-action="open">Open</div>
+        <div class="context-menu-item" data-action="rename">Rename</div>
+        <div class="context-menu-item" data-action="duplicate">Duplicate</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="add-to-scene">Add to Scene</div>
+        <div class="context-menu-item" data-action="set-as-background">Set as Background</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="show-in-folder">Show in Folder</div>
+        <div class="context-menu-item" data-action="export">Export</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item destructive" data-action="delete">Delete</div>
+    </div>
+</div>
+
+<!-- Asset Item Template -->
+<template id="asset-item-template">
+    <div class="asset-item" data-asset-id="">
+        <div class="asset-thumbnail">
+            <!-- Thumbnail or icon will be inserted here -->
+        </div>
+        <div class="asset-details">
+            <div class="asset-name"></div>
+            <div class="asset-info"></div>
+        </div>
+        <div class="asset-actions">
+            <button class="asset-action-btn" title="More options">⋯</button>
+        </div>
+    </div>
+</template>
+
+<!-- Folder Item Template -->
+<template id="folder-item-template">
+    <div class="folder-item" data-folder-id="">
+        <div class="folder-content">
+            <span class="folder-expand">▶</span>
+            <span class="folder-icon">📁</span>
+            <span class="folder-name"></span>
+        </div>
+        <div class="folder-children"></div>
+    </div>
+</template>

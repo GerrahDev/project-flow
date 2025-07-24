@@ -1,0 +1,944 @@
+/* Flow Application Styles - Unity-Style Layout - FIXED for Tab Switching */
+
+/* CSS Variables */
+:root {
+    --highlight-accent: #DE3076;
+    --bg-darkest: #1A1A1A;
+    --panel-medium: #252526;
+    --panel-light: #2D2D30;
+    --borders: #3F3F46;
+    --text-primary: #CCCCCC;
+    --text-secondary: #888888;
+    --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    --success-color: #4CAF50;
+    --warning-color: #FF9800;
+    --error-color: #F44336;
+    --tab-active: #3C3C3C;
+}
+
+/* Reset & Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: var(--font-stack);
+    background-color: var(--bg-darkest);
+    color: var(--text-primary);
+    overflow: hidden;
+    user-select: none;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* FIXED: Unity-Style 3-Panel Grid Layout - Flexible bottom panel */
+.flow-app {
+    display: grid;
+    grid-template-columns: 300px 1fr 280px;
+    grid-template-rows: 40px 1fr minmax(200px, 300px); /* FIXED: Allow bottom panel to resize */
+    grid-template-areas: 
+        "toolbar toolbar toolbar"
+        "hierarchy canvas properties"
+        "bottom-panel bottom-panel bottom-panel";
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Top Toolbar */
+.toolbar {
+    grid-area: toolbar;
+    background-color: var(--panel-light);
+    border-bottom: 1px solid var(--borders);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    gap: 20px;
+}
+
+.toolbar-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar-center {
+    flex: 1;
+    justify-content: center;
+}
+
+.app-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+}
+
+/* Home Dropdown */
+.home-dropdown {
+    position: relative;
+    margin-right: 12px;
+}
+
+.dropdown-toggle {
+    background: var(--panel-medium);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.dropdown-toggle:hover {
+    background-color: var(--highlight-accent);
+    border-color: var(--highlight-accent);
+    color: white;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--panel-light);
+    border: 1px solid var(--borders);
+    border-radius: 4px;
+    padding: 8px 0;
+    min-width: 200px;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: none;
+    margin-top: 4px;
+}
+
+.home-dropdown.active .dropdown-menu {
+    display: block;
+    animation: dropdownFadeIn 0.15s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-group {
+    padding: 4px 0;
+    border-bottom: 1px solid var(--borders);
+}
+
+.dropdown-group:last-child {
+    border-bottom: none;
+}
+
+.dropdown-group h4 {
+    padding: 4px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.dropdown-group button {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    padding: 6px 12px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 11px;
+    transition: background-color 0.15s ease;
+}
+
+.dropdown-group button:hover {
+    background-color: var(--panel-medium);
+}
+
+.dropdown-group button:active {
+    background-color: var(--highlight-accent);
+}
+
+/* Toolbar Buttons */
+.toolbar-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.toolbar-btn:hover {
+    background-color: var(--panel-medium);
+    border-color: var(--borders);
+    color: var(--text-primary);
+}
+
+.toolbar-btn.active {
+    background-color: var(--highlight-accent);
+    color: white;
+    border-color: var(--highlight-accent);
+}
+
+/* Connection Status */
+.connection-status {
+    color: var(--warning-color);
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: var(--panel-medium);
+    border: 1px solid var(--borders);
+    transition: all 0.2s ease;
+}
+
+.connection-status.connected {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.connection-status.disconnected {
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+/* Main Content Area */
+.main-content {
+    display: contents;
+}
+
+/* Panel Base Styles */
+.panel {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--panel-medium);
+}
+
+.panel-header {
+    background-color: var(--panel-light);
+    border-bottom: 1px solid var(--borders);
+    padding: 4px 12px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 26px;
+}
+
+.panel-header h3 {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0;
+}
+
+.panel-action-btn {
+    background: transparent;
+    border: 1px solid var(--borders);
+    color: var(--text-secondary);
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.panel-action-btn:hover {
+    background-color: var(--highlight-accent);
+    border-color: var(--highlight-accent);
+    color: white;
+}
+
+.panel-content {
+    flex: 1;
+    padding: 8px;
+    overflow-y: auto;
+    color: var(--text-secondary);
+    background-color: var(--panel-medium);
+}
+
+/* Left Panel - Hierarchy (Full Height) */
+.hierarchy-panel {
+    grid-area: hierarchy;
+    border-right: 1px solid var(--borders);
+}
+
+/* Canvas Panel */
+.canvas-panel {
+    grid-area: canvas;
+    background-color: var(--bg-darkest);
+    position: relative;
+}
+
+.canvas-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#canvas-info {
+    font-size: 10px;
+    color: var(--text-secondary);
+    padding: 3px 6px;
+    background-color: var(--panel-medium);
+    border-radius: 3px;
+}
+
+.canvas-panel .panel-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background-color: #000000;
+    padding: 0;
+}
+
+#main-canvas {
+    background-color: #000000;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 1px solid var(--borders);
+}
+
+.canvas-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 10;
+}
+
+.canvas-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.canvas-placeholder h3 {
+    font-size: 18px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.canvas-placeholder p {
+    font-size: 12px;
+}
+
+/* Right Panel - Properties (Full Height) */
+.properties-panel {
+    grid-area: properties;
+    border-left: 1px solid var(--borders);
+}
+
+/* FIXED: Bottom Panel - Tabbed Interface with Flex Layout */
+.bottom-panel {
+    grid-area: bottom-panel;
+    border-top: 1px solid var(--borders);
+    display: flex; /* FIXED: Make it a flex container */
+    flex-direction: column; /* FIXED: Stack header and content vertically */
+    min-height: 200px; /* FIXED: Minimum height */
+    max-height: 300px; /* FIXED: Maximum height */
+    contain: layout; /* FIXED: Prevent layout shifts */
+}
+
+/* Tab Bar */
+.tab-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    contain: layout; /* FIXED: Prevent tab changes from affecting layout */
+}
+
+.tab-button {
+    background: var(--panel-medium);
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--text-secondary);
+    padding: 4px 12px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s ease;
+    border-right: 1px solid var(--borders);
+    height: 24px;
+    min-width: fit-content; /* FIXED: Prevent shrinking */
+    flex-shrink: 0; /* FIXED: Don't shrink */
+}
+
+.tab-button:hover {
+    background-color: var(--tab-active);
+    color: var(--text-primary);
+}
+
+.tab-button.active {
+    background-color: var(--panel-light);
+    color: var(--text-primary);
+    border-bottom-color: var(--highlight-accent);
+}
+
+.tab-icon {
+    font-size: 10px;
+}
+
+.tab-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* FIXED: Panel Controls - Prevent layout shifts */
+.panel-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    contain: layout; /* FIXED: Prevent control changes from affecting layout */
+}
+
+.timeline-controls, .assets-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 24px; /* FIXED: Consistent height */
+}
+
+.timeline-btn, .assets-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-secondary);
+    padding: 2px 6px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 10px;
+    font-weight: 500;
+    height: 20px;
+}
+
+.timeline-btn:hover, .assets-btn:hover {
+    background-color: var(--panel-medium);
+    border-color: var(--borders);
+    color: var(--text-primary);
+}
+
+.timeline-btn.active {
+    background-color: var(--highlight-accent);
+    color: white;
+    border-color: var(--highlight-accent);
+}
+
+.timeline-time {
+    font-size: 9px;
+    color: var(--text-secondary);
+    padding: 2px 4px;
+    background-color: var(--panel-medium);
+    border-radius: 3px;
+    margin-left: 6px;
+    font-family: 'Courier New', monospace;
+    height: 18px;
+    display: flex;
+    align-items: center;
+}
+
+/* FIXED: Panel Content for Bottom Panel */
+.bottom-panel .panel-content {
+    flex: 1; /* FIXED: Take all remaining space after header */
+    display: flex; /* FIXED: Make content area flexible */
+    flex-direction: column; /* FIXED: Stack tab content vertically */
+    min-height: 0; /* FIXED: Allow shrinking */
+    overflow: hidden; /* FIXED: Prevent overflow issues */
+    padding: 0; /* FIXED: Remove default padding for tab content */
+}
+
+/* FIXED: Tab Content - Consistent flex layout */
+.tab-content {
+    display: none;
+    height: 100%; /* FIXED: Take full available height */
+    flex: 1; /* FIXED: Take full available space */
+    min-height: 0; /* FIXED: Allow flex shrinking */
+    overflow: hidden; /* FIXED: Prevent overflow */
+}
+
+.tab-content.active {
+    display: flex !important; /* FIXED: Use flex consistently, not block */
+    flex-direction: column; /* FIXED: Stack children vertically */
+}
+
+/* FIXED: Timeline and Assets Containers */
+.timeline-container,
+.assets-container {
+    height: 100%; /* FIXED: Fill parent tab content */
+    min-height: 160px; /* FIXED: Minimum usable height */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    contain: layout; /* FIXED: Stabilize container sizes */
+}
+
+/* FIXED: Tab Control Visibility Classes */
+.tab-control-visible {
+    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease;
+}
+
+.tab-control-hidden {
+    display: none !important;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Placeholder States */
+.no-objects, .no-selection, .no-timeline, .no-assets {
+    text-align: center;
+    padding: 20px 10px;
+    color: var(--text-secondary);
+}
+
+.no-objects p, .no-selection p, .no-timeline p, .no-assets p {
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.no-objects small, .no-selection small, .no-timeline small, .no-assets small {
+    font-size: 10px;
+    color: var(--text-secondary);
+}
+
+/* Modal Dialog Styles */
+.modal-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: modalFadeIn 0.2s ease-out;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: var(--panel-light);
+    border: 1px solid var(--borders);
+    border-radius: 6px;
+    min-width: 400px;
+    max-width: 500px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--borders);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h3 {
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+    background-color: var(--panel-medium);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.modal-body label {
+    display: block;
+    color: var(--text-primary);
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.modal-input {
+    width: 100%;
+    background-color: var(--panel-medium);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: var(--font-stack);
+    transition: all 0.2s ease;
+}
+
+.modal-input:focus {
+    outline: none;
+    border-color: var(--highlight-accent);
+    box-shadow: 0 0 0 2px rgba(222, 48, 118, 0.2);
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--borders);
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.btn-cancel, .btn-ok {
+    background: transparent;
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+    background-color: var(--panel-medium);
+}
+
+.btn-ok {
+    background-color: var(--highlight-accent);
+    border-color: var(--highlight-accent);
+    color: white;
+}
+
+.btn-ok:hover {
+    background-color: #c02865;
+    border-color: #c02865;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--panel-medium);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--borders);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--text-secondary);
+}
+
+/* FIXED: Force Hardware Acceleration for Smooth Transitions */
+.tab-content,
+.timeline-container,
+.assets-container {
+    transform: translateZ(0);
+    will-change: auto;
+}
+
+/* FIXED: Responsive Adjustments for Tab Layout */
+@media (max-width: 1200px) {
+    .flow-app {
+        grid-template-columns: 280px 1fr 260px;
+        grid-template-rows: 40px 1fr minmax(180px, 280px); /* FIXED: Adjust for smaller screens */
+    }
+    
+    .toolbar-center .app-title {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 900px) {
+    .flow-app {
+        grid-template-columns: 250px 1fr 240px;
+        grid-template-rows: 40px 1fr minmax(150px, 250px); /* FIXED: Smaller screens */
+    }
+    
+    .bottom-panel {
+        min-height: 150px;
+        max-height: 250px;
+    }
+}
+
+/* =============================================================================
+   ASSETS PANEL CONTAINED FIX - Keep content within bottom panel bounds
+   ============================================================================= */
+
+/* CRITICAL: Force stable sizing on tab content - CONTAINED VERSION */
+.bottom-panel .tab-content.active,
+.bottom-panel .tab-content[data-tab-content] {npm, 
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    min-height: 200px !important;
+    max-height: 300px !important;
+    flex: 1 !important;
+    overflow: hidden !important; /* KEEP CONTAINED */
+}
+
+/* CRITICAL: Both timeline and assets panels - SAME CONTAINER RULES */
+.bottom-panel .tab-content .panel.timeline-panel,
+.bottom-panel .tab-content .panel.assets-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* LIMIT TO CONTAINER */
+    background-color: var(--panel-medium) !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important; /* PREVENT OVERFLOW */
+}
+
+/* CRITICAL: Both panel-content areas - CONTAINED */
+.bottom-panel .tab-content .timeline-panel .panel-content,
+.bottom-panel .tab-content .assets-panel .panel-content {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* STAY WITHIN BOUNDS */
+    height: 100% !important;
+    overflow: hidden !important; /* PREVENT ESCAPE */
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* CRITICAL: Timeline container - keep existing behavior */
+.timeline-container {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+    contain: layout !important;
+}
+
+/* CRITICAL: Assets container - CONTAINED VERSION */
+.assets-container {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* STAY WITHIN BOUNDS */
+    overflow: hidden !important; /* PREVENT OVERFLOW */
+    contain: layout !important; /* RESTORE CONTAINMENT */
+}
+
+/* CRITICAL: Assets content area - SCROLLABLE BUT CONTAINED */
+.assets-container .assets-content {
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* LIMIT HEIGHT */
+    overflow: auto !important; /* SCROLL WITHIN BOUNDS */
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* CRITICAL: Assets main area - SCROLLABLE CONTENT */
+.assets-main {
+    flex: 1 !important;
+    overflow: auto !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* PREVENT OVERFLOW */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    padding: 8px !important;
+}
+
+/* CRITICAL: Assets folders - CONTROLLED SIZE */
+.assets-folders {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important; /* DON'T SHRINK */
+    max-height: 40% !important; /* LIMIT TO PORTION OF SPACE */
+    overflow-y: auto !important;
+}
+
+/* CRITICAL: Assets items section - TAKE REMAINING SPACE */
+.assets-items {
+    flex: 1 !important;
+    min-height: 0 !important;
+    overflow-y: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+
+/* CRITICAL: Individual folder and item styling */
+.assets-folder,
+.assets-item {
+    flex-shrink: 0 !important;
+    min-height: 24px !important;
+    max-height: 32px !important; /* PREVENT HUGE ITEMS */
+    padding: 4px 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important; /* CLIP LONG TEXT */
+}
+
+/* CRITICAL: Timeline tracks container */
+.timeline-tracks-container {
+    flex: 1 !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+    overflow: hidden !important;
+}
+
+.timeline-track-content {
+    flex: 1 !important;
+    overflow: auto !important;
+    min-height: 0 !important;
+    max-height: 100% !important;
+}
+
+/* CRITICAL: Fix the CSS Grid constraint */
+.flow-app {
+    grid-template-rows: 40px 1fr minmax(200px, 300px) !important;
+}
+
+/* CRITICAL: Bottom panel - STRICTLY CONTROLLED */
+.bottom-panel {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 200px !important;
+    max-height: 300px !important; /* HARD LIMIT */
+    height: auto !important;
+    overflow: hidden !important; /* CRITICAL: PREVENT CONTENT ESCAPE */
+    contain: layout size !important; /* STRICT CONTAINMENT */
+}
+
+/* CRITICAL: Panel content inside bottom panel - CONTAINED */
+.bottom-panel > .panel-content {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: 0 !important;
+    max-height: 100% !important; /* STAY WITHIN BOTTOM PANEL */
+    overflow: hidden !important; /* PREVENT OVERFLOW */
+}
+
+/* CRITICAL: Tab visibility */
+.tab-content {
+    display: none !important;
+}
+
+.tab-content.active {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* CRITICAL: Tab controls visibility */
+.panel-controls [data-tab-content] {
+    display: none !important;
+}
+
+.panel-controls [data-tab-content].tab-control-visible {
+    display: flex !important;
+}
+
+/* =============================================================================
+   DEBUG MODE - Add 'debug-tabs' class to body to see what's happening
+   ============================================================================= */
+.debug-tabs .bottom-panel {
+    border: 4px solid #ff0000 !important; /* Red border around bottom panel */
+}
+
+.debug-tabs .tab-content.active {
+    border: 3px solid #00ff00 !important; /* Green border around active tab */
+}
+
+.debug-tabs .assets-panel {
+    border: 2px solid #ffff00 !important; /* Yellow border around assets panel */
+}
+
+.debug-tabs .assets-container {
+    border: 2px solid #ff8800 !important; /* Orange border around assets container */
+}
+
+.debug-tabs .assets-main {
+    border: 1px solid #8800ff !important; /* Purple border around assets main */
+}
+
+.debug-tabs .assets-content {
+    border: 1px solid #00ffff !important; /* Cyan border around assets content */
+}

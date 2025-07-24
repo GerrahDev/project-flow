@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow - Modern 2D Animation & Video Editing</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div id="app" class="flow-app">
+        <!-- Top Toolbar -->
+        <header id="toolbar" class="toolbar">
+            <div class="toolbar-section">
+                <!-- Home dropdown for project management -->
+                <div class="home-dropdown">
+                    <button class="dropdown-toggle">Home ▼</button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-group">
+                            <h4>Project</h4>
+                            <button data-action="new-project">New Project (Ctrl+N)</button>
+                            <button data-action="load-project">Open Project (Ctrl+O)</button>
+                        </div>
+                        <div class="dropdown-group">
+                            <h4>Save</h4>
+                            <button data-action="save-project">Save Project (Ctrl+S)</button>
+                            <button data-action="save-as-project">Save As (Ctrl+Shift+S)</button>
+                        </div>
+                        <div class="dropdown-group">
+                            <h4>Current Project</h4>
+                            <button data-action="edit-settings">Edit Settings</button>
+                            <button data-action="close-project">Close Project</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tool buttons -->
+                <button id="select-tool" class="toolbar-btn active">Select</button>
+                <button id="hand-tool" class="toolbar-btn">Hand</button>
+                <button id="pen-tool" class="toolbar-btn">Pen</button>
+                <button id="text-tool" class="toolbar-btn">Text</button>
+                <button id="shape-tool" class="toolbar-btn">Shape</button>
+            </div>
+            
+            <div class="toolbar-section toolbar-center">
+                <h1 class="app-title">Flow - Motion Design Studio</h1>
+            </div>
+            
+            <div class="toolbar-section">
+                <button id="snap-btn" class="toolbar-btn">Snap</button>
+                <button id="guides-btn" class="toolbar-btn">Guides</button>
+                <button id="zoom-btn" class="toolbar-btn">Zoom</button>
+                <span id="connection-status" class="connection-status">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Left Panel: Hierarchy (Full Height) -->
+            <aside id="hierarchy-panel" class="panel hierarchy-panel">
+                <div class="panel-header">
+                    <h3>HIERARCHY</h3>
+                    <button class="panel-action-btn" title="Add Object">+</button>
+                </div>
+                <div class="panel-content">
+                    <!-- HierarchyPanel component will be loaded here -->
+                    <div class="loading-placeholder">
+                        <p>Loading hierarchy...</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Center Panel: Canvas/Viewport -->
+            <section id="canvas-panel" class="panel canvas-panel">
+                <div class="panel-header">
+                    <h3>CANVAS</h3>
+                    <div class="canvas-controls">
+                        <span id="canvas-info">No project</span>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <canvas id="main-canvas" width="800" height="600"></canvas>
+                    <div class="canvas-overlay">
+                        <div class="canvas-placeholder">
+                            <h3>Welcome to Flow</h3>
+                            <p>Create or open a project to start designing</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Panel: Properties (Full Height) -->
+            <aside id="properties-panel" class="panel properties-panel">
+                <div class="panel-header">
+                    <h3>PROPERTIES</h3>
+                </div>
+                <div class="panel-content">
+                    <!-- PropertiesPanel component will be loaded here -->
+                    <div class="loading-placeholder">
+                        <p>Loading properties...</p>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Bottom Panel: Tabbed Interface (Timeline + Assets) -->
+        <footer id="bottom-panel" class="panel bottom-panel">
+            <div class="panel-header">
+                <div class="tab-bar">
+                    <button class="tab-button active" data-tab="timeline">
+                        <span class="tab-icon">📅</span>
+                        <span class="tab-label">Timeline</span>
+                    </button>
+                    <button class="tab-button" data-tab="assets">
+                        <span class="tab-icon">📁</span>
+                        <span class="tab-label">Assets</span>
+                    </button>
+                </div>
+                <div class="panel-controls">
+                    <!-- Timeline controls (shown when timeline tab active) -->
+                    <div class="timeline-controls" data-tab-content="timeline">
+                        <button id="play-btn" class="timeline-btn">▶</button>
+                        <button id="pause-btn" class="timeline-btn">⏸</button>
+                        <button id="stop-btn" class="timeline-btn">⏹</button>
+                        <span class="timeline-time">00:00:00</span>
+                    </div>
+                    <!-- Assets controls (shown when assets tab active) -->
+                    <div class="assets-controls" data-tab-content="assets" style="display: none;">
+                        <button class="assets-btn" title="Import Assets">Import</button>
+                        <button class="assets-btn" title="Create Folder">📁</button>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-content">
+                <!-- Timeline Content -->
+                <div class="tab-content active" data-tab-content="timeline">
+                    <!-- TimelinePanel component mount point -->
+                    <div id="timeline-panel" class="panel timeline-panel">
+                        <div class="panel-content">
+                            <div class="loading-placeholder">
+                                <p>Loading timeline...</p>
+                                <small>Initialize timeline component</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Assets Content -->
+                <div class="tab-content" data-tab-content="assets">
+                    <!-- FIXED: Changed id from "assets-content" to "assets-panel" for consistency -->
+                    <div id="assets-panel" class="panel assets-panel">
+                        <div class="panel-content">
+                            <div class="loading-placeholder">
+                                <p>Loading assets...</p>
+                                <small>Initialize assets component</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Load application scripts in correct order -->
+    <script src="core/EventBus.js"></script>
+    <script src="core/WebSocketClient.js"></script>
+    <script src="managers/ConnectionManager.js"></script>
+    <script src="managers/ProjectManager.js"></script>
+    <script src="Debug.js"></script>
+    
+    <!-- Component system scripts -->
+    <script src="components/BaseComponent.js"></script>
+    
+    <!-- UIManager (coordinates components) -->
+    <script src="managers/UIManager.js"></script>
+    
+    <!-- Load app.js last (it loads other components dynamically) -->
+    <script src="app.js"></script>
+
+
+</body>
+</html>

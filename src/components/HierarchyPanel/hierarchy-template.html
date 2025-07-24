@@ -1,0 +1,55 @@
+<!-- HierarchyPanel Template - Object hierarchy tree display -->
+<div class="hierarchy-container">
+    <!-- Main hierarchy tree area -->
+    <div class="hierarchy-tree" id="hierarchy-tree">
+        <!-- Object tree items will be generated here by hierarchy-behaviour.js -->
+        <div class="hierarchy-empty">
+            <p>No objects in scene</p>
+            <small>Right-click to create objects</small>
+        </div>
+    </div>
+
+    <!-- Right-click context menu for object creation -->
+    <div class="hierarchy-context-menu" id="hierarchy-context-menu" style="display: none;">
+        <div class="context-menu-group">
+            <div class="menu-item" data-object-type="Rectangle">
+                <span class="menu-icon">🔲</span>
+                <span class="menu-label">Rectangle</span>
+            </div>
+            <div class="menu-item" data-object-type="Circle">
+                <span class="menu-icon">⭕</span>
+                <span class="menu-label">Circle</span>
+            </div>
+            <div class="menu-item" data-object-type="Text">
+                <span class="menu-icon">🔤</span>
+                <span class="menu-label">Text</span>
+            </div>
+        </div>
+        
+        <div class="menu-separator"></div>
+        
+        <div class="context-menu-group">
+            <div class="menu-item" data-object-type="Group">
+                <span class="menu-icon">📁</span>
+                <span class="menu-label">Create Group</span>
+            </div>
+        </div>
+        
+        <div class="menu-separator"></div>
+        
+        <div class="context-menu-group">
+            <div class="menu-item" data-object-type="Sprite">
+                <span class="menu-icon">🖼️</span>
+                <span class="menu-label">Image</span>
+            </div>
+            <div class="menu-item" data-object-type="Video">
+                <span class="menu-icon">🎬</span>
+                <span class="menu-label">Video</span>
+            </div>
+            <div class="menu-item" data-object-type="Audio">
+                <span class="menu-icon">🎵</span>
+                <span class="menu-label">Audio</span>
+            </div>
+        </div>
+    </div>
+</div>

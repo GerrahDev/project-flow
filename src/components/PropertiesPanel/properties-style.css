@@ -1,0 +1,199 @@
+/* PropertiesPanel Component Styles */
+
+/* No Selection State */
+.no-selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.no-selection-content {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.no-selection-content p {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+}
+
+.no-selection-content small {
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+/* Properties Editor */
+.properties-editor {
+    padding: 12px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+/* Property Groups */
+.property-group {
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--borders);
+    padding-bottom: 16px;
+}
+
+.property-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.group-header {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 12px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--borders);
+}
+
+/* Property Rows */
+.property-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 8px;
+}
+
+.property-row:last-child {
+    margin-bottom: 0;
+}
+
+.property-row label {
+    font-size: 11px;
+    color: var(--text-primary);
+    font-weight: 500;
+    min-width: 60px;
+    flex-shrink: 0;
+}
+
+/* Input Styles */
+.property-input {
+    background-color: var(--panel-medium);
+    border: 1px solid var(--borders);
+    color: var(--text-primary);
+    border-radius: 3px;
+    font-size: 11px;
+    font-family: var(--font-stack);
+    transition: all 0.2s ease;
+}
+
+.property-input:focus {
+    outline: none;
+    border-color: var(--highlight-accent);
+    box-shadow: 0 0 0 1px rgba(222, 48, 118, 0.3);
+}
+
+/* Text Inputs */
+.text-input {
+    padding: 4px 8px;
+    flex: 1;
+    min-width: 0;
+}
+
+/* Number Inputs */
+.number-input {
+    padding: 4px 6px;
+    width: 60px;
+    text-align: center;
+}
+
+.number-input.small {
+    width: 50px;
+}
+
+/* Input Groups (Position X/Y) */
+.input-group {
+    display: flex;
+    gap: 4px;
+    flex: 1;
+}
+
+/* Checkbox Inputs */
+.checkbox-input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--highlight-accent);
+}
+
+/* Slider Inputs */
+.slider-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.slider-input {
+    flex: 1;
+    height: 4px;
+    background: var(--panel-medium);
+    outline: none;
+    cursor: pointer;
+}
+
+.slider-input::-webkit-slider-thumb {
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    background: var(--highlight-accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+    background: #c02865;
+    transform: scale(1.1);
+}
+
+.slider-input::-webkit-slider-track {
+    background: var(--borders);
+    height: 4px;
+    border-radius: 2px;
+}
+
+.slider-value {
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* Hover Effects */
+.property-row:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+    border-radius: 3px;
+    margin: -2px -4px;
+    padding: 2px 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .property-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+    }
+    
+    .property-row label {
+        min-width: auto;
+    }
+    
+    .slider-group,
+    .input-group {
+        justify-content: stretch;
+    }
+}

@@ -1,0 +1,142 @@
+<!-- Timeline Panel Template - Foundation for Full Timeline System -->
+<div class="timeline-container">
+    <!-- Timeline Header - Extensible for future timeline modes -->
+    <div class="timeline-header">
+        <!-- Playback Controls -->
+        <div class="timeline-controls">
+            <button class="timeline-btn play-btn" id="timeline-play" title="Play">▶</button>
+            <button class="timeline-btn pause-btn" id="timeline-pause" title="Pause">⏸</button>
+            <button class="timeline-btn stop-btn" id="timeline-stop" title="Stop">⏹</button>
+            <span class="timeline-separator">|</span>
+            <button class="timeline-btn" id="timeline-beginning" title="Go to Beginning">⏮</button>
+            <button class="timeline-btn" id="timeline-frame-back" title="Previous Frame">⏪</button>
+            <button class="timeline-btn" id="timeline-frame-forward" title="Next Frame">⏩</button>
+            <button class="timeline-btn" id="timeline-end" title="Go to End">⏭</button>
+        </div>
+        
+        <!-- Time Display -->
+        <div class="timeline-time-display">
+            <span class="current-time" id="timeline-current-time">00:00.00</span>
+            <span class="time-separator">/</span>
+            <span class="total-duration" id="timeline-total-duration">00:10.00</span>
+            <span class="frame-info" id="timeline-frame-info">(Frame 0/300)</span>
+        </div>
+        
+        <!-- Timeline Mode Selector - Foundation for VideoGroup/MotionGroup/AnimationGroup -->
+        <div class="timeline-mode-selector">
+            <label for="timeline-mode">Mode:</label>
+            <select id="timeline-mode" class="timeline-mode-dropdown">
+                <option value="motion">Motion</option>
+                <option value="video">Video</option>
+                <option value="animation">Animation</option>
+            </select>
+        </div>
+        
+        <!-- Zoom Controls -->
+        <div class="timeline-zoom-controls">
+            <button class="timeline-btn" id="timeline-zoom-out" title="Zoom Out">🔍-</button>
+            <span class="zoom-level" id="timeline-zoom-level">100%</span>
+            <button class="timeline-btn" id="timeline-zoom-in" title="Zoom In">🔍+</button>
+            <button class="timeline-btn" id="timeline-fit" title="Fit to Window">⊞</button>
+        </div>
+    </div>
+    
+    <!-- Timeline Ruler - Scalable time markers -->
+    <div class="timeline-ruler" id="timeline-ruler">
+        <div class="ruler-background"></div>
+        <div class="ruler-markers" id="timeline-markers"></div>
+        <div class="ruler-playhead" id="timeline-playhead">
+            <div class="playhead-line"></div>
+            <div class="playhead-handle"></div>
+        </div>
+        <div class="ruler-time-labels" id="timeline-time-labels"></div>
+    </div>
+    
+    <!-- Timeline Track Area - Dynamic foundation for object tracks -->
+    <div class="timeline-tracks-container">
+        <!-- Track Headers (Object names, expand/collapse buttons) -->
+        <div class="timeline-track-headers" id="timeline-track-headers">
+            <!-- Dynamically generated track headers -->
+        </div>
+        
+        <!-- Track Content Area (Timeline bars, keyframes, property tracks) -->
+        <div class="timeline-track-content" id="timeline-track-content">
+            <!-- Dynamically generated track content -->
+        </div>
+    </div>
+    
+    <!-- Timeline Footer - Status and additional controls -->
+    <div class="timeline-footer">
+        <div class="timeline-status">
+            <span class="timeline-fps" id="timeline-fps">30 FPS</span>
+            <span class="timeline-separator">|</span>
+            <span class="timeline-objects" id="timeline-object-count">0 Objects</span>
+        </div>
+        
+        <div class="timeline-options">
+            <label class="timeline-checkbox">
+                <input type="checkbox" id="timeline-snap" checked>
+                <span>Snap</span>
+            </label>
+            <label class="timeline-checkbox">
+                <input type="checkbox" id="timeline-onion-skin">
+                <span>Onion Skin</span>
+            </label>
+        </div>
+    </div>
+    
+    <!-- Timeline Context Menu - Foundation for keyframe operations -->
+    <div class="timeline-context-menu" id="timeline-context-menu" style="display: none;">
+        <div class="context-menu-item" data-action="add-keyframe">Add Keyframe</div>
+        <div class="context-menu-item" data-action="delete-keyframe">Delete Keyframe</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="copy-keyframes">Copy Keyframes</div>
+        <div class="context-menu-item" data-action="paste-keyframes">Paste Keyframes</div>
+        <div class="context-menu-separator"></div>
+        <div class="context-menu-item" data-action="ease-in">Ease In</div>
+        <div class="context-menu-item" data-action="ease-out">Ease Out</div>
+        <div class="context-menu-item" data-action="linear">Linear</div>
+    </div>
+</div>
+
+<!-- Track Header Template - For dynamic track generation -->
+<template id="timeline-track-header-template">
+    <div class="track-header" data-object-id="">
+        <div class="track-expand-btn" title="Expand/Collapse Properties">▼</div>
+        <div class="track-icon"></div>
+        <div class="track-name"></div>
+        <div class="track-controls">
+            <button class="track-visibility-btn" title="Show/Hide">👁</button>
+            <button class="track-lock-btn" title="Lock/Unlock">🔒</button>
+        </div>
+    </div>
+</template>
+
+<!-- Track Content Template - For dynamic timeline bars -->
+<template id="timeline-track-content-template">
+    <div class="track-content" data-object-id="">
+        <div class="track-timeline-bar"></div>
+        <div class="track-keyframes"></div>
+        <!-- Property tracks will be inserted here when expanded -->
+        <div class="property-tracks" style="display: none;"></div>
+    </div>
+</template>
+
+<!-- Property Track Template - Foundation for keyframe animation -->
+<template id="timeline-property-track-template">
+    <div class="property-track" data-property="">
+        <div class="property-track-header">
+            <span class="property-name"></span>
+        </div>
+        <div class="property-track-content">
+            <div class="property-keyframes"></div>
+        </div>
+    </div>
+</template>
+
+<!-- Keyframe Template - Foundation for animation keyframes -->
+<template id="timeline-keyframe-template">
+    <div class="timeline-keyframe" data-time="" data-property="">
+        <div class="keyframe-diamond"></div>
+    </div>
+</template>

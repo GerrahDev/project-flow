@@ -1,0 +1,79 @@
+<!-- PropertiesPanel Template -->
+
+<!-- No Selection State -->
+<div class="no-selection">
+    <div class="no-selection-content">
+        <p>Select an object to view properties</p>
+        <small>Transform, appearance, and animation settings will appear here</small>
+    </div>
+</div>
+
+<!-- Properties Editor -->
+<div class="properties-editor" style="display: none;">
+    
+    <!-- Object Properties Section -->
+    <div class="property-group">
+        <h4 class="group-header">Object</h4>
+        <div class="property-row">
+            <label for="prop-name">Name</label>
+            <input type="text" id="prop-name" class="property-input text-input" placeholder="Object name">
+        </div>
+        <div class="property-row">
+            <label for="prop-visible">Visible</label>
+            <input type="checkbox" id="prop-visible" class="property-input checkbox-input" checked>
+        </div>
+        <div class="property-row">
+            <label for="prop-zorder">Z-Order</label>
+            <input type="number" id="prop-zorder" class="property-input number-input" value="1" min="0">
+        </div>
+    </div>
+    
+    <!-- Transform Properties Section -->
+    <div class="property-group">
+        <h4 class="group-header">Transform</h4>
+        
+        <!-- Position -->
+        <div class="property-row">
+            <label>Position</label>
+            <div class="input-group">
+                <input type="number" id="prop-pos-x" class="property-input number-input small" placeholder="X" step="0.1">
+                <input type="number" id="prop-pos-y" class="property-input number-input small" placeholder="Y" step="0.1">
+            </div>
+        </div>
+        
+        <!-- Scale -->
+        <div class="property-row">
+            <label for="prop-scale-x">Scale X</label>
+            <div class="slider-group">
+                <input type="range" id="prop-scale-x" class="property-input slider-input" min="0" max="2" step="0.01" value="1">
+                <span class="slider-value">1.00</span>
+            </div>
+        </div>
+        <div class="property-row">
+            <label for="prop-scale-y">Scale Y</label>
+            <div class="slider-group">
+                <input type="range" id="prop-scale-y" class="property-input slider-input" min="0" max="2" step="0.01" value="1">
+                <span class="slider-value">1.00</span>
+            </div>
+        </div>
+        
+        <!-- Rotation -->
+        <div class="property-row">
+            <label for="prop-rotation">Rotation</label>
+            <div class="slider-group">
+                <input type="range" id="prop-rotation" class="property-input slider-input" min="0" max="360" step="1" value="0">
+                <span class="slider-value">0°</span>
+            </div>
+        </div>
+        
+        <!-- Opacity -->
+        <div class="property-row">
+            <label for="prop-opacity">Opacity</label>
+            <div class="slider-group">
+                <input type="range" id="prop-opacity" class="property-input slider-input" min="0" max="1" step="0.01" value="1">
+                <span class="slider-value">100%</span>
+            </div>
+        </div>
+    </div>
+    
+</div>

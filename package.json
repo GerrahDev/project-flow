@@ -1,0 +1,29 @@
+{
+  "name": "flow-frontend",
+  "version": "1.0.0",
+  "description": "Flow - Modern 2D Animation & Video Editing Software (Frontend)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "clean": "rimraf dist/"
+  },
+  "keywords": [
+    "animation",
+    "video-editing",
+    "electron",
+    "desktop-app"
+  ],
+  "author": "Flow Development Team",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  },
+  "dependencies": {
+    "ws": "^8.14.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
